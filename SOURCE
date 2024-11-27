@@ -1,0 +1,83 @@
+-- script
+local function callback(Text)
+ if Text == "Button1 text" then
+  print ("Answer")
+elseif Text == ("Button2 text") then
+ print ("Answer2")
+ end
+end
+
+local NotificationBindable = Instance.new("BindableFunction")
+NotificationBindable.OnInvoke = callback
+--
+game.StarterGui:SetCore("SendNotification",  {
+ Title = "So long. Nerds.";
+ Text = "This is my last script before i die..";
+ Icon = "";
+ Duration = 100;
+ Button1 = "…";
+ Callback = NotificationBindable;
+})
+
+for i, v in pairs(game:GetService("ReplicatedStorage")._NETWORK:GetChildren()) do
+    if v.Name:find("{") then
+        local args = {
+            [1] = "Titan"
+        }
+
+        if v:IsA("RemoteEvent") then
+            v:FireServer(unpack(args))
+        elseif v:IsA("RemoteFunction") then
+            local result = v:InvokeServer(unpack(args))
+            print("Result from InvokeServer:", result)
+        else
+            print("v is neither a RemoteEvent nor a RemoteFunction.")
+        end
+    end
+end
+
+wait(0.4)
+
+local args = {
+    [1] = "Transform"
+}
+
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(unpack(args))
+
+wait(1)
+
+fireclickdetector(workspace.Lobby.GloveStands.Diamond.ClickDetector)
+
+wait(0.5)
+
+game:GetService("ReplicatedStorage").Rockmode:FireServer()
+
+wait(0.3)
+
+game:GetService("ReplicatedStorage").DeactivateRockmode:FireServer()
+
+fireclickdetector(workspace.Lobby.GloveStands.Sbeve.ClickDetector)
+
+wait(1)
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(-16.401077, 369.581299, -2.050903))
+
+wait(0.5)
+
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+
+-- Adjust hitbox size and transparency
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local function adjustHitbox()
+    local originalSize = humanoidRootPart.Size
+    humanoidRootPart.Size = originalSize + Vector3.new(4, 4, 4) -- Increase hitbox by 4 units
+
+    local transparency = 0.5 -- Adjust transparency here (0 = opaque, 1 = fully transparent)
+    humanoidRootPart.Material = Enum.Material.SmoothPlastic -- Optional: Change material for better visibility
+    humanoidRootPart.Transparency = transparency
+end
+
+adjustHitbox()
